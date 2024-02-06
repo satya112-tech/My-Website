@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h3>Todo List</h3>
+    <form action="/todo/" method="POST">
+        {% csrf_token %}
+        {{form.title}}
+        <input type="submit" name="Create Task">
+    </form>
+    {% for todo in todos %}
+    <div>
+        <a href="{% url 'update_todo' todo.id %}">Update</a>
+        <a href="{% url 'delete' todo.id %}">Delete</a>
+        {% if todo.complete == True %}
+        <del>{{todo}}</del>
+        {% else %}
+        <span>{{todo}}</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>
